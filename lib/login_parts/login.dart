@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:welfare_app/login_parts/registration.dart';
+import 'package:welfare_app/main.dart';
 
 class LoginModel extends ChangeNotifier {
   String mail = "";
@@ -57,16 +58,42 @@ class LoginPage extends StatelessWidget {
                   onPressed: () async {
                     try {
                       await model.login();
-                      Navigator.of(context).pushReplacementNamed('/');
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MyHomePage()));
                     } catch (e) {
+                      String errorMsg = "パスワードが間違っているかまだ登録されてないユーザです。";
+                      if (e is FirebaseAuthException) {
+                        switch (e.code) {
+                          case 'invalid-email':
+                            errorMsg = errorMsg;
+                            break;
+                          case 'user-not-found':
+                            errorMsg = errorMsg;
+                            break;
+                          case 'wrong-password':
+                            errorMsg = errorMsg;
+                            break;
+                          default:
+                            errorMsg = e.message ?? errorMsg;
+                            break;
+                        }
+                      }
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text(e.toString()),
+                          content: Text(errorMsg),
                         ),
                       );
                     }
                   },
                   child: Text('Login'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegistrationPage()),
+                    );
+                  },
+                  child: Text('Go to Registration Page'),
                 ),
               ],
             );

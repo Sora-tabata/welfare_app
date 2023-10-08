@@ -14,10 +14,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:welfare_app/login_parts/login.dart';
 import 'package:welfare_app/login_parts/registration.dart';
+import 'package:welfare_app/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(MyApp());
 }
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
             if (snapshot.hasData) {
               return MyHomePage();  // ログイン済みなら、MyHomePageを表示
             } else {
-              return LoginPage();  // 未ログインなら、LoginPageを表示
+              return RegistrationPage();  // 未ログインなら、LoginPageを表示
             }
           }
         },
@@ -61,6 +63,21 @@ class _MyHomePageState extends State<MyHomePage> {
     Settings(),
   ];
 
+  // 追加
+  String _email = '';
+  String _password = '';
+  Future<void> _registerUser() async {
+    try {
+      final User? user = (await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: _email, password: _password))
+          .user;
+      if (user != null) {
+        print("ユーザを登録しました: ${user.email}, ${user.uid}");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,6 +102,31 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
+        ],
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+
+          FloatingActionButton(
+            onPressed: () async {
+              try {
+                await FirebaseAuth.instance.signOut();
+                print("ログアウトしました");
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              } catch (e) {
+                print("ログアウトに失敗しました: $e");
+              }
+            },
+            tooltip: 'Logout', // この部分は意味合いに合わせて変更してください
+            child: Icon(Icons.logout),
+          ),
+          SizedBox(height: 16),
+
+
         ],
       ),
     );

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1087776430753",
+    "project_id": "welfare-firebase",
+    "storage_bucket": "welfare-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087776430753:android:44c111118ecd60619e2ee0",
+        "android_client_info": {
+          "package_name": "com.example.welfare_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsUgsbcY-mLAVLicQP5QmJf3GfFtbKTpA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

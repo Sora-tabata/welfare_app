@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:welfare_app/login_parts/login.dart';
 
 
 class SignUpModel extends ChangeNotifier {
@@ -39,11 +40,11 @@ class RegistrationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<SignUpModel>(
-      create: (_) => SignUpModel(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Registration'),
-        ),
+        create: (_) => SignUpModel(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Registration'),
+          ),
         body: Consumer<SignUpModel>(
           builder: (context, model, child) {
             return Column(
@@ -75,6 +76,15 @@ class RegistrationPage extends StatelessWidget {
                     }
                   },
                   child: Text('Sign Up'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => LoginPage()),
+                    );
+                  },
+                  child: Text('Go to Login Page'),
                 ),
               ],
             );
