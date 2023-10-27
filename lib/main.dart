@@ -501,5 +501,3 @@ class Settings extends StatelessWidget {
     );
   }
 }
-
-
