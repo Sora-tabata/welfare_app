@@ -415,10 +415,56 @@ class TextCard extends StatefulWidget {
 class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation _animation;
+  bool isLiked = false; //いいねされているかどうかの状態
+
+  Future<void> toggleLike() async{
+    User? currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser == null) {
+      print("User not logged in");
+      return;
+    }
+    // Firestoreに保存する一意のドキュメントIDを生成（この例ではユーザーIDとテキストで）
+    String docId = "${currentUser.uid}_${widget.text}";
+    // Firestoreのインスタンスを取得
+    final firestore = FirebaseFirestore.instance;
+
+    // いいねの状態をトグル
+    if (isLiked) {
+      // いいねを取り消す（ドキュメントを削除）
+      await firestore.collection('likes').doc(docId).delete();
+    } else {
+      // いいねをする（ドキュメントを追加）
+      await firestore.collection('likes').doc(docId).set({
+        'userId': currentUser.uid,
+        'text': widget.text,
+      });
+
+    }
+    // 状態を更新
+    setState(() {
+      isLiked = !isLiked;
+    });
+
+
+  }
+  // Firestoreから「いいね」の状態を取得
+  void checkLikeStatus() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) {
+      return;
+    }
+    String docId = "${currentUser.uid}_${widget.text}";
+    final doc = await FirebaseFirestore.instance.collection('likes').doc(docId).get();
+    setState(() {
+      isLiked = doc.exists;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    checkLikeStatus();
     _controller = AnimationController(
       duration: Duration(milliseconds: 300),
       vsync: this,
@@ -429,6 +475,7 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
+
     return GestureDetector(
       onTapDown: (_) {
         _controller.forward();
@@ -478,6 +525,17 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
                     ),
                   ),
                 ),
+                Positioned(
+                  right: 10,
+                  bottom: 10,
+                  child: IconButton(
+                    icon: Icon(
+                      isLiked ? Icons.favorite : Icons.favorite_border,
+                      color: isLiked ? Colors.red : null,
+                    ),
+                    onPressed: toggleLike,
+                  ),
+                ),
               ],
             ),
           );
@@ -485,6 +543,8 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
       ),
     );
   }
+
+
 }
 
 
