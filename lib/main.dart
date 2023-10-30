@@ -27,12 +27,16 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => BookmarkModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => TextCardInfoModel()),
+        // 他のプロバイダー
+      ],
       child: MyApp(),
     ),
   );
 }
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -101,6 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     User? currentUser = FirebaseAuth.instance.currentUser;
     String? userName = getUserNameFromEmail(currentUser?.email);
 
@@ -178,6 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
 List<TextCardInfo> searchInTextCards(String query) {
   List<TextCardInfo> allItems = []..addAll(popularItemsInfo)
     ..addAll(propertyItemsInfo)
@@ -396,6 +402,13 @@ class TextCardInfo {
   final Widget Function() createPage;
 
   TextCardInfo({required this.text, required this.imagePath, required this.createPage});
+  factory TextCardInfo.fromMap(Map<String, dynamic> data) {
+    return TextCardInfo(
+      text: data['text'] ?? '',
+      imagePath: data['imagePath'] ?? '',
+      createPage: () => DetailPage1(), // または適切なページ
+    );
+  }
 }
 
 
@@ -438,6 +451,8 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
       await firestore.collection('likes').doc(docId).set({
         'userId': currentUser.uid,
         'text': widget.text,
+        'imagePath': widget.imagePath,
+        //'createPage': widget.createPage,
       });
 
     }
@@ -548,7 +563,34 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
 }
 
 
-// HorizontalListView の定義はそのまま
+class TextCardInfoModel extends ChangeNotifier {
+  List<TextCardInfo> _textCardInfoList = [];
+
+  List<TextCardInfo> get textCardInfoList => _textCardInfoList;
+
+  void setTextCardInfoList(List<TextCardInfo> list) {
+    _textCardInfoList = list;
+    notifyListeners();
+  }
+
+  String _imagePath = 'default_path';
+  Widget Function() _createPage = () => DetailPage1(); // デフォルト値
+
+
+  String get imagePath => _imagePath;
+  Widget Function() get createPage => _createPage;
+
+  void setImagePath(String path) {
+    _imagePath = path;
+    notifyListeners();
+  }
+
+  void setCreatePage(Widget Function() page) {
+    _createPage = page;
+    notifyListeners();
+  }
+}
+
 
 
 

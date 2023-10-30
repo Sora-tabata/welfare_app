@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:welfare_app/main.dart';
+import 'package:provider/provider.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -24,6 +26,17 @@ class _MyPageState extends State<MyPage> {
 
   @override
   Widget build(BuildContext context) {
+    // モデルを取得
+    TextCardInfoModel textCardInfoModel = Provider.of<TextCardInfoModel>(context);
+
+    // モデルからTextCardInfoリストを取得
+    List<TextCardInfo> textCardInfoList = textCardInfoModel.textCardInfoList;
+    TextCardInfoModel model = Provider.of<TextCardInfoModel>(context);
+
+    // modelからimagePathとcreatePageを取得
+    String imagePath = model.imagePath;
+    Widget Function() createPage = model.createPage;
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -45,16 +58,20 @@ class _MyPageState extends State<MyPage> {
                     child: ListView(
                       children: snapshot.data!.docs.map((DocumentSnapshot document) {
                         Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                        // TODO: ここで取得したデータを適切なモデルに変換する
-                        // 例: TextCardInfo info = TextCardInfo.fromMap(data);
+                        TextCardInfo info = TextCardInfo.fromMap(data);
                         return GestureDetector(
                           onTap: () {
-                            // Navigator.push(...);  // 遷移先を指定
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => info.createPage(),
+                              ),
+                            );
                           },
                           child: Card(
                             child: ListTile(
-                              // leading: Image.asset(info.imagePath),  // 画像
-                              // title: Text(info.text),  // タイトル
+                              leading: Image.asset(info.imagePath),  // 画像
+                              title: Text(info.text),  // タイトル
                             ),
                           ),
                         );
