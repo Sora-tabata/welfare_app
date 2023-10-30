@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:welfare_app/main.dart';
 import 'package:provider/provider.dart';
+import 'package:welfare_app/screens/detail_page.dart';
+import 'package:welfare_app/screens/detail/property.dart';
 
 class MyPage extends StatefulWidget {
   @override
@@ -23,7 +25,17 @@ class _MyPageState extends State<MyPage> {
         .where('userId', isEqualTo: currentUser?.uid)
         .snapshots();
   }
-
+  Widget createPageFromPageID(String pageID) {
+    switch (pageID) {
+      case 'ProPage1':
+        return ProPage1();
+      case 'DetailPage2':
+        return DetailPage2();
+    // 他のpageIDに対する処理をここに追加
+      default:
+        return DetailPage1();  // デフォルトの遷移先
+    }
+  }
   @override
   Widget build(BuildContext context) {
     // モデルを取得
@@ -31,11 +43,7 @@ class _MyPageState extends State<MyPage> {
 
     // モデルからTextCardInfoリストを取得
     List<TextCardInfo> textCardInfoList = textCardInfoModel.textCardInfoList;
-    TextCardInfoModel model = Provider.of<TextCardInfoModel>(context);
 
-    // modelからimagePathとcreatePageを取得
-    String imagePath = model.imagePath;
-    Widget Function() createPage = model.createPage;
 
     return Center(
       child: Column(
@@ -58,20 +66,21 @@ class _MyPageState extends State<MyPage> {
                     child: ListView(
                       children: snapshot.data!.docs.map((DocumentSnapshot document) {
                         Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-                        TextCardInfo info = TextCardInfo.fromMap(data);
+                        String pageID = data['pageID'];  // FirestoreからpageIDを取得
+
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => info.createPage(),
+                                builder: (context) => createPageFromPageID(pageID),  // pageIDに基づいて遷移
                               ),
                             );
                           },
                           child: Card(
                             child: ListTile(
-                              leading: Image.asset(info.imagePath),  // 画像
-                              title: Text(info.text),  // タイトル
+                              leading: Image.asset(data['imagePath']),  // 画像
+                              title: Text(data['text']),  // タイトル
                             ),
                           ),
                         );

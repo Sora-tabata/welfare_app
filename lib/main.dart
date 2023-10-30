@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // 検索結果の表示
           if (searchResults.isNotEmpty)  // 検索結果があれば表示
             Column(
-              children: searchResults.map((info) => TextCard(info.text, info.imagePath, info.createPage)).toList(),
+              children: searchResults.map((info) => TextCard(info.text, info.imagePath, info.pageID)).toList(),
             ),
           // その他のコンテンツ
           Expanded(
@@ -201,99 +201,99 @@ List<TextCardInfo> searchInTextCards(String query) {
 }
 // 人気の項目
 List<TextCardInfo> popularItemsInfo = [
-  TextCardInfo(text: "家賃・住宅手当", imagePath: "material/img/thumbnail/004_icon_007_housing.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "フレックスタイム制度", imagePath: "material/img/thumbnail/004_icon_008_working.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "人間ドック", imagePath: "material/img/thumbnail/004_icon_002_meal.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "社員食堂", imagePath: "material/img/thumbnail/004_icon_002_meal.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "通勤手当", imagePath: "material/img/thumbnail/004_icon_010_transportation.png", createPage: () => DetailPage1()),
+  TextCardInfo(text: "家賃・住宅手当", imagePath: "material/img/thumbnail/004_icon_007_housing.png", pageID:"ProPage1"),
+  TextCardInfo(text: "フレックスタイム制度", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
+  TextCardInfo(text: "人間ドック", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
+  TextCardInfo(text: "社員食堂", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
+  TextCardInfo(text: "通勤手当", imagePath: "material/img/thumbnail/004_icon_010_transportation.png", pageID:"ProPage1"),
 ];
 
 // 財産形成の項目
 List<TextCardInfo> propertyItemsInfo = [
-  TextCardInfo(text: "財形貯蓄制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", createPage: () => ProPage1()),
-  TextCardInfo(text: "社内預金制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "社内貸付制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "ストックオプション制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "セミナー制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "財形貯蓄制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
+  TextCardInfo(text: "社内預金制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
+  TextCardInfo(text: "社内貸付制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
+  TextCardInfo(text: "ストックオプション制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
+  TextCardInfo(text: "セミナー制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
 ];
 
 // 食事・健康の項目
 List<TextCardInfo> mealItemsInfo = [
-  TextCardInfo(text: "社員食堂", imagePath: "material/img/thumbnail/004_icon_002_meal.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "食事手当", imagePath: "material/img/thumbnail/004_icon_002_meal.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "メンタルヘルスケア", imagePath: "material/img/thumbnail/004_icon_002_meal.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "人間ドック", imagePath: "material/img/thumbnail/004_icon_002_meal.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "提携飲食店・ジム", imagePath: "material/img/thumbnail/004_icon_002_meal.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "社員食堂", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
+  TextCardInfo(text: "食事手当", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
+  TextCardInfo(text: "メンタルヘルスケア", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
+  TextCardInfo(text: "人間ドック", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
+  TextCardInfo(text: "提携飲食店・ジム", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
 ];
 
 
 // 休暇の項目
 List<TextCardInfo> vacationItemsInfo = [
-  TextCardInfo(text: "リフレッシュ休暇", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "ボランティア休暇", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "アニバーサリー休暇", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "特別有給制度", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "リフレッシュ休暇", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", pageID:"ProPage1"),
+  TextCardInfo(text: "ボランティア休暇", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", pageID:"ProPage1"),
+  TextCardInfo(text: "アニバーサリー休暇", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", pageID:"ProPage1"),
+  TextCardInfo(text: "特別有給制度", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", pageID:"ProPage1"),
 ];
 
 
 // 余暇・レクリエーションの項目
 List<TextCardInfo> recreationItemsInfo = [
-  TextCardInfo(text: "社員旅行", imagePath: "material/img/thumbnail/004_icon_004_recreation.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "社内部活・サークル活動", imagePath: "material/img/thumbnail/004_icon_004_recreation.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "交流会・親睦会", imagePath: "material/img/thumbnail/004_icon_004_recreation.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "社員旅行", imagePath: "material/img/thumbnail/004_icon_004_recreation.png", pageID:"ProPage1"),
+  TextCardInfo(text: "社内部活・サークル活動", imagePath: "material/img/thumbnail/004_icon_004_recreation.png", pageID:"ProPage1"),
+  TextCardInfo(text: "交流会・親睦会", imagePath: "material/img/thumbnail/004_icon_004_recreation.png", pageID:"ProPage1"),
 ];
 
 // 自己啓発の項目
 List<TextCardInfo> developmentItemsInfo = [
-  TextCardInfo(text: "資格取得支援", imagePath: "material/img/thumbnail/004_icon_005_development.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "自己啓発セミナー参加費補助", imagePath: "material/img/thumbnail/004_icon_005_development.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "本の購入補助", imagePath: "material/img/thumbnail/004_icon_005_development.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "留学・海外研修の補助", imagePath: "material/img/thumbnail/004_icon_005_development.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "資格取得支援", imagePath: "material/img/thumbnail/004_icon_005_development.png", pageID:"ProPage1"),
+  TextCardInfo(text: "自己啓発セミナー参加費補助", imagePath: "material/img/thumbnail/004_icon_005_development.png", pageID:"ProPage1"),
+  TextCardInfo(text: "本の購入補助", imagePath: "material/img/thumbnail/004_icon_005_development.png", pageID:"ProPage1"),
+  TextCardInfo(text: "留学・海外研修の補助", imagePath: "material/img/thumbnail/004_icon_005_development.png", pageID:"ProPage1"),
 ];
 
 
 // 慶弔・災害の項目
 List<TextCardInfo> disasterItemsInfo = [
-  TextCardInfo(text: "慶弔見舞い金制度", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "傷病・災害見舞金", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "開店・開業祝い", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "永年勤続表彰", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "慶弔見舞い金制度", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", pageID:"ProPage1"),
+  TextCardInfo(text: "傷病・災害見舞金", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", pageID:"ProPage1"),
+  TextCardInfo(text: "開店・開業祝い", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", pageID:"ProPage1"),
+  TextCardInfo(text: "永年勤続表彰", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", pageID:"ProPage1"),
 ];
 
 // 住宅補助の項目
 List<TextCardInfo> housingItemsInfo = [
-  TextCardInfo(text: "家賃・住宅手当", imagePath: "material/img/thumbnail/004_icon_007_housing.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "社員寮・住宅", imagePath: "material/img/thumbnail/004_icon_007_housing.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "住宅ローン補助", imagePath: "material/img/thumbnail/004_icon_007_housing.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "家賃・住宅手当", imagePath: "material/img/thumbnail/004_icon_007_housing.png", pageID:"ProPage1"),
+  TextCardInfo(text: "社員寮・住宅", imagePath: "material/img/thumbnail/004_icon_007_housing.png", pageID:"ProPage1"),
+  TextCardInfo(text: "住宅ローン補助", imagePath: "material/img/thumbnail/004_icon_007_housing.png", pageID:"ProPage1"),
   // 他の項目を追加できます
 ];
 
 
 // 働き方の項目
 List<TextCardInfo> workingItemsInfo = [
-  TextCardInfo(text: "フレックスタイム制度", imagePath: "material/img/thumbnail/004_icon_008_working.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "時差出勤制度", imagePath: "material/img/thumbnail/004_icon_008_working.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "短時間勤務", imagePath: "material/img/thumbnail/004_icon_008_working.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "プレミアムフライデー", imagePath: "material/img/thumbnail/004_icon_008_working.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "ノー残業デー", imagePath: "material/img/thumbnail/004_icon_008_working.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "フレックスタイム制度", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
+  TextCardInfo(text: "時差出勤制度", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
+  TextCardInfo(text: "短時間勤務", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
+  TextCardInfo(text: "プレミアムフライデー", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
+  TextCardInfo(text: "ノー残業デー", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
 ];
 
 // 育児・介護の項目
 List<TextCardInfo> helpingItemsInfo = [
-  TextCardInfo(text: "育児休業の延長制度", imagePath: "material/img/thumbnail/004_icon_009_helping.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "社内保育園・託児所", imagePath: "material/img/thumbnail/004_icon_009_helping.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "ベビーシッター補助金", imagePath: "material/img/thumbnail/004_icon_009_helping.png", createPage: () => DetailPage2()),
-  TextCardInfo(text: "介護費用補助", imagePath: "material/img/thumbnail/004_icon_009_helping.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "育児休業の延長制度", imagePath: "material/img/thumbnail/004_icon_009_helping.png", pageID:"ProPage1"),
+  TextCardInfo(text: "社内保育園・託児所", imagePath: "material/img/thumbnail/004_icon_009_helping.png", pageID:"ProPage1"),
+  TextCardInfo(text: "ベビーシッター補助金", imagePath: "material/img/thumbnail/004_icon_009_helping.png", pageID:"ProPage1"),
+  TextCardInfo(text: "介護費用補助", imagePath: "material/img/thumbnail/004_icon_009_helping.png", pageID:"ProPage1"),
 ];
 
 // 交通関連の項目
 List<TextCardInfo> transportationItemsInfo = [
-  TextCardInfo(text: "通勤手当", imagePath: "material/img/thumbnail/004_icon_010_transportation.png", createPage: () => DetailPage1()),
-  TextCardInfo(text: "駐車場の補助", imagePath: "material/img/thumbnail/004_icon_010_transportation.png", createPage: () => DetailPage2()),
+  TextCardInfo(text: "通勤手当", imagePath: "material/img/thumbnail/004_icon_010_transportation.png", pageID:"ProPage1"),
+  TextCardInfo(text: "駐車場の補助", imagePath: "material/img/thumbnail/004_icon_010_transportation.png", pageID:"ProPage1"),
   // 他の項目を追加できます
 ];
 TextCard createTextCardFromInfo(TextCardInfo info) {
-  return TextCard(info.text, info.imagePath, info.createPage);
+  return TextCard(info.text, info.imagePath, info.pageID);
 }
 
 
@@ -399,14 +399,15 @@ class Home extends StatelessWidget {
 class TextCardInfo {
   final String text;
   final String imagePath;
-  final Widget Function() createPage;
+  //final Widget Function() createPage;
+  final String pageID;
 
-  TextCardInfo({required this.text, required this.imagePath, required this.createPage});
+  TextCardInfo({required this.text, required this.imagePath, required this.pageID});
   factory TextCardInfo.fromMap(Map<String, dynamic> data) {
     return TextCardInfo(
       text: data['text'] ?? '',
       imagePath: data['imagePath'] ?? '',
-      createPage: () => DetailPage1(), // または適切なページ
+      pageID: data['pageID'], // または適切なページ
     );
   }
 }
@@ -417,9 +418,10 @@ class TextCardInfo {
 class TextCard extends StatefulWidget {
   final String text;
   final String imagePath;
-  final Widget Function() createPage;  // 遷移先のページを生成する関数
+  //final Widget Function() createPage;  // 遷移先のページを生成する関数
+  final String pageID;
 
-  TextCard(this.text, this.imagePath, this.createPage);
+  TextCard(this.text, this.imagePath, this.pageID);
 
   @override
   _TextCardState createState() => _TextCardState();
@@ -452,7 +454,7 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
         'userId': currentUser.uid,
         'text': widget.text,
         'imagePath': widget.imagePath,
-        //'createPage': widget.createPage,
+        'pageID': widget.pageID,
       });
 
     }
@@ -487,7 +489,17 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
 
     _animation = ColorTween(begin: Colors.teal, end: Colors.teal[700]).animate(_controller);
   }
-
+  Widget createPage() {
+    switch (widget.pageID) {  // widget.pageId を参照
+      case 'ProPage1':
+        return ProPage1();
+      case 'DetailPage2':
+        return DetailPage2();
+    // 他のページIDに対する処理を追加
+      default:
+        return DetailPage1();  // デフォルトページ
+    }
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -502,7 +514,7 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => widget.createPage(),
+            builder: (context) => createPage(),
           ),
         );
       },
