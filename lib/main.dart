@@ -185,111 +185,89 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 List<TextCardInfo> searchInTextCards(String query) {
-  List<TextCardInfo> allItems = []..addAll(popularItemsInfo)
-    ..addAll(propertyItemsInfo)
-    ..addAll(mealItemsInfo)
+  List<TextCardInfo> allItems = []..addAll(workingtypeItemsInfo)
     ..addAll(vacationItemsInfo)
-    ..addAll(recreationItemsInfo)
-    ..addAll(developmentItemsInfo)
-    ..addAll(disasterItemsInfo)
-    ..addAll(housingItemsInfo)
-    ..addAll(workingItemsInfo)
-    ..addAll(helpingItemsInfo)
-    ..addAll(transportationItemsInfo);
+    ..addAll(assistanceItemsInfo)
+    ..addAll(workskillItemsInfo)
+    ..addAll(consultationItemsInfo)
+    ..addAll(assetItemsInfo)
+    ..addAll(healthItemsInfo)
+    ..addAll(lifeskillItemsInfo)
+    ..addAll(lifestyleItemsInfo);
 
   return allItems.where((item) => item.text.toLowerCase().contains(query.toLowerCase())).toList();
 }
 // 人気の項目
-List<TextCardInfo> popularItemsInfo = [
-  TextCardInfo(text: "家賃・住宅手当", imagePath: "material/img/thumbnail/004_icon_007_housing.png", pageID:"ProPage1"),
-  TextCardInfo(text: "フレックスタイム制度", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
-  TextCardInfo(text: "人間ドック", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
-  TextCardInfo(text: "社員食堂", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
-  TextCardInfo(text: "通勤手当", imagePath: "material/img/thumbnail/004_icon_010_transportation.png", pageID:"ProPage1"),
-];
 
 // 財産形成の項目
-List<TextCardInfo> propertyItemsInfo = [
-  TextCardInfo(text: "財形貯蓄制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
-  TextCardInfo(text: "社内預金制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
-  TextCardInfo(text: "社内貸付制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
-  TextCardInfo(text: "ストックオプション制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
-  TextCardInfo(text: "セミナー制度", imagePath: "material/img/thumbnail/004_icon_001_property.png", pageID:"ProPage1"),
+List<TextCardInfo> lifeskillItemsInfo = [
+  TextCardInfo(text: "自己啓発補助", imagePath: "material/img/thumbnail/0801.png", pageID:"ProPage1"),
 ];
 
 // 食事・健康の項目
-List<TextCardInfo> mealItemsInfo = [
-  TextCardInfo(text: "社員食堂", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
-  TextCardInfo(text: "食事手当", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
-  TextCardInfo(text: "メンタルヘルスケア", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
-  TextCardInfo(text: "人間ドック", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
-  TextCardInfo(text: "提携飲食店・ジム", imagePath: "material/img/thumbnail/004_icon_002_meal.png", pageID:"ProPage1"),
+List<TextCardInfo> healthItemsInfo = [
+  TextCardInfo(text: "人間ドック補助", imagePath: "material/img/thumbnail/0701.png", pageID:"ProPage1"),
+  TextCardInfo(text: "ストレスチェック", imagePath: "material/img/thumbnail/0702.png", pageID:"ProPage1"),
+  TextCardInfo(text: "メンタルヘルスケア", imagePath: "material/img/thumbnail/0703.png", pageID:"ProPage1"),
+  TextCardInfo(text: "健康相談", imagePath: "material/img/thumbnail/0704.png", pageID:"ProPage1"),
+  TextCardInfo(text: "育児・介護相談", imagePath: "material/img/thumbnail/0705.png", pageID:"ProPage1"),
+  TextCardInfo(text: "予防歯科推進", imagePath: "material/img/thumbnail/0706.png", pageID:"ProPage1"),
 ];
 
 
 // 休暇の項目
-List<TextCardInfo> vacationItemsInfo = [
-  TextCardInfo(text: "リフレッシュ休暇", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", pageID:"ProPage1"),
-  TextCardInfo(text: "ボランティア休暇", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", pageID:"ProPage1"),
-  TextCardInfo(text: "アニバーサリー休暇", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", pageID:"ProPage1"),
-  TextCardInfo(text: "特別有給制度", imagePath: "material/img/thumbnail/004_icon_003_vacation.png", pageID:"ProPage1"),
+List<TextCardInfo> assetItemsInfo = [
+  TextCardInfo(text: "401K制度", imagePath: "material/img/thumbnail/0601.png", pageID:"ProPage1"),
+  TextCardInfo(text: "金融相談（投資・ローン・保険）", imagePath: "material/img/thumbnail/0602.png", pageID:"ProPage1"),
 ];
 
 
 // 余暇・レクリエーションの項目
-List<TextCardInfo> recreationItemsInfo = [
-  TextCardInfo(text: "社員旅行", imagePath: "material/img/thumbnail/004_icon_004_recreation.png", pageID:"ProPage1"),
-  TextCardInfo(text: "社内部活・サークル活動", imagePath: "material/img/thumbnail/004_icon_004_recreation.png", pageID:"ProPage1"),
-  TextCardInfo(text: "交流会・親睦会", imagePath: "material/img/thumbnail/004_icon_004_recreation.png", pageID:"ProPage1"),
+List<TextCardInfo> consultationItemsInfo = [
+  TextCardInfo(text: "社内通報制度", imagePath: "material/img/thumbnail/0501.png", pageID:"ProPage1"),
+  TextCardInfo(text: "育児・介護相談", imagePath: "material/img/thumbnail/0502.png", pageID:"ProPage1"),
+  TextCardInfo(text: "健康相談", imagePath: "material/img/thumbnail/0503.png", pageID:"ProPage1"),
 ];
 
 // 自己啓発の項目
-List<TextCardInfo> developmentItemsInfo = [
-  TextCardInfo(text: "資格取得支援", imagePath: "material/img/thumbnail/004_icon_005_development.png", pageID:"ProPage1"),
-  TextCardInfo(text: "自己啓発セミナー参加費補助", imagePath: "material/img/thumbnail/004_icon_005_development.png", pageID:"ProPage1"),
-  TextCardInfo(text: "本の購入補助", imagePath: "material/img/thumbnail/004_icon_005_development.png", pageID:"ProPage1"),
-  TextCardInfo(text: "留学・海外研修の補助", imagePath: "material/img/thumbnail/004_icon_005_development.png", pageID:"ProPage1"),
+List<TextCardInfo> workskillItemsInfo = [
+  TextCardInfo(text: "資格取得支援制度", imagePath: "material/img/thumbnail/0401.png", pageID:"ProPage1"),
 ];
 
 
 // 慶弔・災害の項目
-List<TextCardInfo> disasterItemsInfo = [
-  TextCardInfo(text: "慶弔見舞い金制度", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", pageID:"ProPage1"),
-  TextCardInfo(text: "傷病・災害見舞金", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", pageID:"ProPage1"),
-  TextCardInfo(text: "開店・開業祝い", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", pageID:"ProPage1"),
-  TextCardInfo(text: "永年勤続表彰", imagePath: "material/img/thumbnail/004_icon_006_disaster.png", pageID:"ProPage1"),
+List<TextCardInfo> lifestyleItemsInfo = [
+  TextCardInfo(text: "弔慰金（1親等）", imagePath: "material/img/thumbnail/0901.png", pageID:"ProPage1"),
+  TextCardInfo(text: "長期療養時給与サポート", imagePath: "material/img/thumbnail/0902.jpeg", pageID:"ProPage1"),
+  TextCardInfo(text: "入院見舞金", imagePath: "material/img/thumbnail/0903.jpeg", pageID:"ProPage1"),
 ];
 
-// 住宅補助の項目
-List<TextCardInfo> housingItemsInfo = [
-  TextCardInfo(text: "家賃・住宅手当", imagePath: "material/img/thumbnail/004_icon_007_housing.png", pageID:"ProPage1"),
-  TextCardInfo(text: "社員寮・住宅", imagePath: "material/img/thumbnail/004_icon_007_housing.png", pageID:"ProPage1"),
-  TextCardInfo(text: "住宅ローン補助", imagePath: "material/img/thumbnail/004_icon_007_housing.png", pageID:"ProPage1"),
-  // 他の項目を追加できます
-];
 
 
 // 働き方の項目
-List<TextCardInfo> workingItemsInfo = [
-  TextCardInfo(text: "フレックスタイム制度", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
-  TextCardInfo(text: "時差出勤制度", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
-  TextCardInfo(text: "短時間勤務", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
-  TextCardInfo(text: "プレミアムフライデー", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
-  TextCardInfo(text: "ノー残業デー", imagePath: "material/img/thumbnail/004_icon_008_working.png", pageID:"ProPage1"),
+List<TextCardInfo> workingtypeItemsInfo = [
+  TextCardInfo(text: "フレックス勤務", imagePath: "material/img/thumbnail/0101.png", pageID:"ProPage1"),
+  TextCardInfo(text: "在宅勤務", imagePath: "material/img/thumbnail/0102.png", pageID:"ProPage1"),
+  TextCardInfo(text: "時差出勤制度", imagePath: "material/img/thumbnail/0103.png", pageID:"ProPage1"),
 ];
 
 // 育児・介護の項目
-List<TextCardInfo> helpingItemsInfo = [
-  TextCardInfo(text: "育児休業の延長制度", imagePath: "material/img/thumbnail/004_icon_009_helping.png", pageID:"ProPage1"),
-  TextCardInfo(text: "社内保育園・託児所", imagePath: "material/img/thumbnail/004_icon_009_helping.png", pageID:"ProPage1"),
-  TextCardInfo(text: "ベビーシッター補助金", imagePath: "material/img/thumbnail/004_icon_009_helping.png", pageID:"ProPage1"),
-  TextCardInfo(text: "介護費用補助", imagePath: "material/img/thumbnail/004_icon_009_helping.png", pageID:"ProPage1"),
+List<TextCardInfo> vacationItemsInfo = [
+  TextCardInfo(text: "時間休制度", imagePath: "material/img/thumbnail/0201.png", pageID:"ProPage1"),
+  TextCardInfo(text: "傷病休暇", imagePath: "material/img/thumbnail/0202.png", pageID:"ProPage1"),
+  TextCardInfo(text: "リフレッシュ休暇", imagePath: "material/img/thumbnail/0203.png", pageID:"ProPage1"),
+  TextCardInfo(text: "忌引き休暇", imagePath: "material/img/thumbnail/0204.png", pageID:"ProPage1"),
+  TextCardInfo(text: "介護休業（延長）", imagePath: "material/img/thumbnail/0205.png", pageID:"ProPage1"),
+  TextCardInfo(text: "育児休業（延長）", imagePath: "material/img/thumbnail/0206.png", pageID:"ProPage1"),
+  TextCardInfo(text: "キャリアアップ休業", imagePath: "material/img/thumbnail/0207.png", pageID:"ProPage1"),
 ];
 
 // 交通関連の項目
-List<TextCardInfo> transportationItemsInfo = [
-  TextCardInfo(text: "通勤手当", imagePath: "material/img/thumbnail/004_icon_010_transportation.png", pageID:"ProPage1"),
-  TextCardInfo(text: "駐車場の補助", imagePath: "material/img/thumbnail/004_icon_010_transportation.png", pageID:"ProPage1"),
+List<TextCardInfo> assistanceItemsInfo = [
+  TextCardInfo(text: "通勤手当", imagePath: "material/img/thumbnail/0301.jpeg", pageID:"ProPage1"),
+  TextCardInfo(text: "出張手当", imagePath: "material/img/thumbnail/0302.jpeg", pageID:"ProPage1"),
+  TextCardInfo(text: "ベビーシッター補助", imagePath: "material/img/thumbnail/0303.jpeg", pageID:"ProPage1"),
+  TextCardInfo(text: "ヘルパー補助", imagePath: "material/img/thumbnail/0304.png", pageID:"ProPage1"),
   // 他の項目を追加できます
 ];
 TextCard createTextCardFromInfo(TextCardInfo info) {
@@ -309,22 +287,10 @@ class Home extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                // 全てのカテゴリを表示
+
                 HorizontalListView(
-                  title: '人気',
-                  children: popularItems,
-                  allPageBuilder: (children, title) => AllPage(children: children, title: title),
-                ),
-                Divider(height: 1, color: Colors.grey[400], thickness: 2),
-                HorizontalListView(
-                  title: '財産形成',
-                  children: propertyItems,
-                  allPageBuilder: (children, title) => AllPage(children: children, title: title),
-                ),
-                Divider(height: 1, color: Colors.grey[400], thickness: 2),
-                HorizontalListView(
-                  title: '食事補助・健康管理',
-                  children: mealItems,
+                  title: '勤務形態',
+                  children: workingtypeItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
@@ -335,44 +301,44 @@ class Home extends StatelessWidget {
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '余暇・レクリエーション',
-                  children: recreationItems,
+                  title: '手当・補助',
+                  children: assistanceItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '自己啓発',
-                  children: developmentItems,
+                  title: 'スキルアップ',
+                  children: workskillItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '慶弔・災害',
-                  children: disasterItems,
+                  title: '相談窓口',
+                  children: consultationItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '住宅補助',
-                  children: housingItems,
+                  title: '資産形成支援',
+                  children: assetItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '働き方',
-                  children: workingItems,
+                  title: '健康支援',
+                  children: healthItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '育児・介護',
-                  children: helpingItems,
+                  title: 'スキルアップ支援',
+                  children: lifeskillItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '交通関連',
-                  children: transportationItems,
+                  title: 'ライフスタイル',
+                  children: lifestyleItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
               ],
@@ -382,18 +348,15 @@ class Home extends StatelessWidget {
       ),
     );
   }
-  List<Widget> popularItems = popularItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> propertyItems = propertyItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> mealItems = mealItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> workingtypeItems = workingtypeItemsInfo.map(createTextCardFromInfo).toList();
   List<Widget> vacationItems = vacationItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> recreationItems = recreationItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> developmentItems = developmentItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> disasterItems = disasterItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> housingItems = housingItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> workingItems = workingItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> helpingItems = helpingItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> transportationItems = transportationItemsInfo.map(createTextCardFromInfo).toList();
-
+  List<Widget> assistanceItems = assistanceItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> workskillItems = workskillItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> consultationItems = consultationItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> assetItems = assetItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> healthItems = healthItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> lifeskillItems = lifeskillItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> lifestyleItems = lifestyleItemsInfo.map(createTextCardFromInfo).toList();
 }
 
 class TextCardInfo {
