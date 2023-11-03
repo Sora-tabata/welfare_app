@@ -1,4 +1,4 @@
-package com.example.welfare_app
+package com.arcra.welfare_app
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -43,9 +43,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Welfare App',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
+      theme: ThemeData.light().copyWith(
+        primaryColor: Colors.green,
+        ),
+      darkTheme: ThemeData.dark().copyWith(
+          primaryColor: Colors.green,
+        ),
+        //primarySwatch: Colors.teal,
+
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
@@ -72,14 +77,15 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    Home(),
+    WorkPage(),
+    LifePage(),
     MyPage(),
-    Settings(),
+    SettingsPage(),
   ];
 
   String _email = '';
   String _password = '';
-  String _searchText = '';
+  //String _searchText = '';
   String? getUserNameFromEmail(String? email) {
     if (email == null) {
       return null;
@@ -102,6 +108,42 @@ class _MyHomePageState extends State<MyHomePage> {
       print(e);
     }
   }
+  String _companyName = ''; // 会社名を保持するための変数
+  String _userName = ''; // ユーザ名を保持するための変数
+
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser == null) return;
+
+    // ユーザーのメールアドレスを基にFirestoreからユーザー情報を取得する
+    final userDocumentSnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: currentUser.email)
+        .get();
+
+    if (userDocumentSnapshot.docs.isNotEmpty) {
+      final userData = userDocumentSnapshot.docs.first.data();
+      final companyCode = userData['companyCode'] as String? ?? '';
+      final name = userData['name'] as String? ?? '';
+      setState(() {
+        _userName = name; // ユーザ名を設定
+        if (companyCode == '0000') {
+          _companyName = "株式会社与和's";
+        } else {
+          // companyCodeが'0000'でない場合の処理をここに記述
+        }
+      });
+    } else {
+      // ユーザー情報が見つからない場合の処理をここに記述
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,30 +153,50 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: userName != null
-            ? Text('$userName様')  // ユーザ名が取得できた場合
-            : Text('WELFARE APP'),  // ユーザ名が取得できなかった場合
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Flexible(
+              child: Text(
+                userName != null ? '$_userName様 ' : 'WELFARE APP', // ユーザ名が取得できた場合
+                overflow: TextOverflow.ellipsis, // 長すぎるテキストを省略
+              ),
+            ),
+            Flexible(
+              child: Text(
+                _companyName, // companyCodeに基づいた会社名を表示
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 20,
+                ),
+                overflow: TextOverflow.ellipsis, // 長すぎるテキストを省略
+              ),
+            ),
+          ],
+        ),
+        centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.logout),
             onPressed: () async {
               try {
                 await FirebaseAuth.instance.signOut();
-                print("ログアウトしました");
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage()),
                 );
               } catch (e) {
-                print("ログアウトに失敗しました: $e");
+                print(e); // エラーをコンソールに出力
               }
             },
-          )
+          ),
         ],
       ),
+      // Scaffoldのその他のプロパティ
       body: Column(
         children: [
           // 検索バーの追加
+          /*
           TextField(
             onChanged: (text) {
               setState(() {
@@ -152,10 +214,14 @@ class _MyHomePageState extends State<MyHomePage> {
             Column(
               children: searchResults.map((info) => TextCard(info.text, info.imagePath, info.pageID)).toList(),
             ),
+            */
+
           // その他のコンテンツ
           Expanded(
             child: _children[_currentIndex],
           ),
+
+
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -165,18 +231,24 @@ class _MyHomePageState extends State<MyHomePage> {
             _currentIndex = index;
           });
         },
+        unselectedItemColor: Colors.grey, // 選択されていないアイテムの色
+        selectedItemColor: Colors.blue,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.work),
+            label: 'Work（働き方）',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.nightlife_rounded),
+            label: 'Life（生活）',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'MyPage',
+            label: 'マイページ',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Settings',
+            label: '設定',
           ),
         ],
       ),
@@ -275,7 +347,7 @@ TextCard createTextCardFromInfo(TextCardInfo info) {
 }
 
 
-class Home extends StatelessWidget {
+class WorkPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -317,6 +389,33 @@ class Home extends StatelessWidget {
                   children: consultationItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
+
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  List<Widget> workingtypeItems = workingtypeItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> vacationItems = vacationItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> assistanceItems = assistanceItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> workskillItems = workskillItemsInfo.map(createTextCardFromInfo).toList();
+  List<Widget> consultationItems = consultationItemsInfo.map(createTextCardFromInfo).toList();
+}
+
+class LifePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          //CupertinoSliverNavigationBar(
+          //  largeTitle: Text('福利厚生'),
+          //),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
                   title: '資産形成支援',
@@ -348,11 +447,6 @@ class Home extends StatelessWidget {
       ),
     );
   }
-  List<Widget> workingtypeItems = workingtypeItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> vacationItems = vacationItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> assistanceItems = assistanceItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> workskillItems = workskillItemsInfo.map(createTextCardFromInfo).toList();
-  List<Widget> consultationItems = consultationItemsInfo.map(createTextCardFromInfo).toList();
   List<Widget> assetItems = assetItemsInfo.map(createTextCardFromInfo).toList();
   List<Widget> healthItems = healthItemsInfo.map(createTextCardFromInfo).toList();
   List<Widget> lifeskillItems = lifeskillItemsInfo.map(createTextCardFromInfo).toList();
@@ -392,6 +486,7 @@ class TextCard extends StatefulWidget {
 
 class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
   late Animation _animation;
   bool isLiked = false; //いいねされているかどうかの状態
 
@@ -444,13 +539,13 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    checkLikeStatus();
     _controller = AnimationController(
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 200),
       vsync: this,
     );
-
-    _animation = ColorTween(begin: Colors.teal, end: Colors.teal[700]).animate(_controller);
+    _scaleAnimation = Tween(begin: 1.0, end: 0.9).animate(_controller);
+    // ... 他の初期化コード
+    checkLikeStatus();
   }
   Widget createPage() {
     switch (widget.pageID) {  // widget.pageId を参照
@@ -465,14 +560,9 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
   }
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
-      onTapDown: (_) {
-        _controller.forward();
-      },
-      onTapUp: (_) {
-        _controller.reverse();
-      },
+      onTapDown: (_) => _controller.forward(),
+      onTapUp: (_) => _controller.reverse(),
       onTap: () {
         Navigator.push(
           context,
@@ -482,18 +572,29 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
         );
       },
       child: AnimatedBuilder(
-        animation: _controller,
+        animation: _scaleAnimation,
         builder: (context, child) {
           return Container(
             width: 180,  // 明示的に幅を設定
             height: 180,  // 明示的に高さを設定
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),  // 角を丸くする
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.8), // 影の色
+                  spreadRadius: 3.0,  // 影の範囲
+                  blurRadius: 10.0,   // ぼかしの量
+                  offset: Offset(1, 2), // 影の位置
+                ),
+              ],
+            ),  // 明示的に高さを設定
             child: Stack(
               children: [
                 Opacity(
                   opacity: 0.3,
                   child: widget.imagePath.isNotEmpty
                       ? ClipRRect(
-                    borderRadius: BorderRadius.circular(20),  // 角を丸くする
+                    borderRadius: BorderRadius.circular(50),  // 角を丸くする
                     child: Image.asset(
                       widget.imagePath,
                       fit: BoxFit.cover,
@@ -570,11 +671,3 @@ class TextCardInfoModel extends ChangeNotifier {
 
 
 
-class Settings extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text('Settings'),
-    );
-  }
-}
