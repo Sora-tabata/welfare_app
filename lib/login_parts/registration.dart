@@ -58,7 +58,7 @@ class RegistrationPage extends StatelessWidget {
       create: (_) => SignUpModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Registration'),
+          title: Text('新規登録'),
         ),
         body: Consumer<SignUpModel>(
           builder: (context, model, child) {
@@ -66,31 +66,31 @@ class RegistrationPage extends StatelessWidget {
               child: Column(
                 children: [
                   TextField(
-                    decoration: InputDecoration(labelText: 'Company Code'),
+                    decoration: InputDecoration(labelText: '会社コード'),
                     onChanged: (text) {
                       model.companyCode = text;
                     },
                   ),
                   TextField(
-                    decoration: InputDecoration(labelText: 'Employee Number'),
+                    decoration: InputDecoration(labelText: '従業員番号'),
                     onChanged: (text) {
                       model.employeeNumber = text;
                     },
                   ),
                   TextField(
-                    decoration: InputDecoration(labelText: 'Name'),
+                    decoration: InputDecoration(labelText: '氏名'),
                     onChanged: (text) {
                       model.name = text;
                     },
                   ),
                   TextField(
-                    decoration: InputDecoration(labelText: 'Email'),
+                    decoration: InputDecoration(labelText: 'メールアドレス'),
                     onChanged: (text) {
                       model.mail = text;
                     },
                   ),
                   TextField(
-                    decoration: InputDecoration(labelText: 'Password'),
+                    decoration: InputDecoration(labelText: 'パスワード'),
                     obscureText: true,
                     onChanged: (text) {
                       model.password = text;
@@ -109,7 +109,7 @@ class RegistrationPage extends StatelessWidget {
                         );
                       }
                     },
-                    child: Text('Sign Up'),
+                    child: Text('新規登録'),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -118,7 +118,7 @@ class RegistrationPage extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => LoginPage()),
                       );
                     },
-                    child: Text('Go to Login Page'),
+                    child: Text('ログインページへ戻る'),
                   ),
                 ],
               ),

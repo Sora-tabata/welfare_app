@@ -41,9 +41,10 @@ class HorizontalListView extends StatelessWidget {
             itemCount: children.length,
             itemBuilder: (_, int index) {
               return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                padding: const EdgeInsets.all(10.0),
+                child: Material( // Material ウィジェットを追加
+                  elevation: 5.0, // elevation の値を設定して影をつける
+                  borderRadius: BorderRadius.circular(0),
                   child: SizedBox(
                     width: 150,
                     height: 150,

@@ -44,12 +44,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Welfare App',
       theme: ThemeData.light().copyWith(
-        primaryColor: Colors.green,
+        primaryColor: Colors.white,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white, // AppBarの背景色を白に設定
         ),
+      ),
       darkTheme: ThemeData.dark().copyWith(
-          primaryColor: Colors.green,
-        ),
-        //primarySwatch: Colors.teal,
+        primaryColor: Colors.white,
+      ),
+      //primarySwatch: Colors.teal,
 
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
@@ -158,8 +161,14 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Flexible(
               child: Text(
+
                 userName != null ? '$_userName様 ' : 'WELFARE APP', // ユーザ名が取得できた場合
                 overflow: TextOverflow.ellipsis, // 長すぎるテキストを省略
+                style: TextStyle(
+                  fontWeight: FontWeight.normal,
+                  fontSize: 20,
+                  color: Colors.black87,
+                ),
               ),
             ),
             Flexible(
@@ -168,16 +177,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 20,
+                  color: Colors.black87,
                 ),
                 overflow: TextOverflow.ellipsis, // 長すぎるテキストを省略
               ),
             ),
           ],
         ),
+
         centerTitle: true,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.logout),
+            color: Colors.grey,
             onPressed: () async {
               try {
                 await FirebaseAuth.instance.signOut();
@@ -232,7 +244,7 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
         unselectedItemColor: Colors.grey, // 選択されていないアイテムの色
-        selectedItemColor: Colors.blue,
+        selectedItemColor: Colors.blueGrey,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.work),
@@ -297,8 +309,8 @@ List<TextCardInfo> assetItemsInfo = [
 // 余暇・レクリエーションの項目
 List<TextCardInfo> consultationItemsInfo = [
   TextCardInfo(text: "社内通報制度", imagePath: "material/img/thumbnail/0501.png", pageID:"ProPage1"),
-  TextCardInfo(text: "育児・介護相談", imagePath: "material/img/thumbnail/0502.png", pageID:"ProPage1"),
-  TextCardInfo(text: "健康相談", imagePath: "material/img/thumbnail/0503.png", pageID:"ProPage1"),
+  TextCardInfo(text: "育児・介護相談（業務上）", imagePath: "material/img/thumbnail/0502.png", pageID:"ProPage1"),
+  TextCardInfo(text: "健康相談（業務上）", imagePath: "material/img/thumbnail/0503.png", pageID:"ProPage1"),
 ];
 
 // 自己啓発の項目
@@ -361,31 +373,31 @@ class WorkPage extends StatelessWidget {
               [
 
                 HorizontalListView(
-                  title: '勤務形態',
+                  title: '　　勤務形態',
                   children: workingtypeItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '休暇',
+                  title: '　　休暇',
                   children: vacationItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '手当・補助',
+                  title: '　　手当・補助',
                   children: assistanceItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: 'スキルアップ',
+                  title: '　　スキルアップ',
                   children: workskillItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '相談窓口',
+                  title: '　　相談窓口',
                   children: consultationItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
@@ -418,25 +430,25 @@ class LifePage extends StatelessWidget {
               [
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '資産形成支援',
+                  title: '　　資産形成支援',
                   children: assetItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: '健康支援',
+                  title: '　　健康支援',
                   children: healthItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: 'スキルアップ支援',
+                  title: '　　スキルアップ支援',
                   children: lifeskillItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
                 Divider(height: 1, color: Colors.grey[400], thickness: 2),
                 HorizontalListView(
-                  title: 'ライフスタイル',
+                  title: '　　ライフスタイル',
                   children: lifestyleItems,
                   allPageBuilder: (children, title) => AllPage(children: children, title: title),
                 ),
@@ -550,7 +562,7 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
   Widget createPage() {
     switch (widget.pageID) {  // widget.pageId を参照
       case 'ProPage1':
-        return ProPage1();
+        return ProPage1(text: widget.text);
       case 'DetailPage2':
         return DetailPage2();
     // 他のページIDに対する処理を追加
@@ -562,8 +574,8 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) => _controller.forward(),
-      onTapUp: (_) => _controller.reverse(),
-      onTap: () {
+      onTapUp: (_) {
+        _controller.reverse();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -574,66 +586,67 @@ class _TextCardState extends State<TextCard> with SingleTickerProviderStateMixin
       child: AnimatedBuilder(
         animation: _scaleAnimation,
         builder: (context, child) {
-          return Container(
-            width: 180,  // 明示的に幅を設定
-            height: 180,  // 明示的に高さを設定
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),  // 角を丸くする
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.8), // 影の色
-                  spreadRadius: 3.0,  // 影の範囲
-                  blurRadius: 10.0,   // ぼかしの量
-                  offset: Offset(1, 2), // 影の位置
-                ),
-              ],
-            ),  // 明示的に高さを設定
-            child: Stack(
-              children: [
-                Opacity(
-                  opacity: 0.3,
-                  child: widget.imagePath.isNotEmpty
-                      ? ClipRRect(
-                    borderRadius: BorderRadius.circular(50),  // 角を丸くする
-                    child: Image.asset(
-                      widget.imagePath,
-                      fit: BoxFit.cover,
-                      width: 200,  // Containerと同じサイズ
-                      height: 200,  // Containerと同じサイズ
-                    ),
-                  )
-                      : Container(),
-                ),
-                // テキストを中央に配置
-                Center(
-                  child: Text(
-                    widget.text,
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black,
-                      fontFamily: 'Serif',
-                      fontWeight: FontWeight.bold,
+          return Material(
+            elevation: 4.0,  // ウィジェット全体に影を追加
+            borderRadius: BorderRadius.circular(1), // 角を丸くしない
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Expanded(
+                        flex: 2, // 画像が全体の 2/3 の高さを占めるようにします
+                        child: Opacity(
+                          opacity: 0.5, // 画像の透明度を少し上げる
+                          child: widget.imagePath.isNotEmpty
+                              ? Image.asset(
+                            widget.imagePath,
+                            fit: BoxFit.cover,
+                            width: 200,  // Containerと同じサイズ
+                            height: 180,  // 全体の 2/3 のサイズ
+                          )
+                              : Container(),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1, // テキストが全体の 1/3 の高さを占めるようにします
+                        child: Container(
+                          color: Colors.white,  // 下半分を白色に設定
+                          child: Center(
+                            child: Text(
+                              widget.text,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontFamily: 'Serif',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: IconButton(
+                      icon: Icon(
+                        isLiked ? Icons.bookmark : Icons.bookmark_outline_rounded,
+                        color: isLiked ? Colors.green : null,
+                      ),
+                      onPressed: toggleLike,
                     ),
                   ),
-                ),
-                Positioned(
-                  right: 10,
-                  bottom: 10,
-                  child: IconButton(
-                    icon: Icon(
-                      isLiked ? Icons.favorite : Icons.favorite_border,
-                      color: isLiked ? Colors.red : null,
-                    ),
-                    onPressed: toggleLike,
-                  ),
-                ),
-              ],
-            ),
+                ],
+              ),
+
           );
         },
       ),
     );
   }
+
+
 
 
 }
@@ -666,8 +679,3 @@ class TextCardInfoModel extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-
-
-
-

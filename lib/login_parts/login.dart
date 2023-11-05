@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
       create: (_) => LoginModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Login'),
+          title: Text('ログイン'),
         ),
         body: Consumer<LoginModel>(
           builder: (context, model, child) {
@@ -84,7 +84,7 @@ class LoginPage extends StatelessWidget {
                       );
                     }
                   },
-                  child: Text('Login'),
+                  child: Text('ログイン'),
                 ),
                 ElevatedButton(
                   onPressed: () {
@@ -93,7 +93,7 @@ class LoginPage extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => RegistrationPage()),
                     );
                   },
-                  child: Text('Go to Registration Page'),
+                  child: Text('新規登録ページへ'),
                 ),
               ],
             );
